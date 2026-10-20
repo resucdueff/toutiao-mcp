@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+// Keep stdout reserved for MCP JSON-RPC.
+console.log = console.error;
+
 /**
  * 今日头条 MCP 服务器主入口
  */

@@ -39,7 +39,7 @@ export const DEFAULT_HEADERS = {
 export const SELENIUM_CONFIG = {
   implicitWait: 10000, // 10 seconds
   explicitWait: 30000, // 30 seconds
-  headless: false, // 是否使用无头模式
+  headless: /^(1|true|yes)$/i.test(process.env.SELENIUM_HEADLESS || ""), // 是否使用无头模式
   chromeOptions: [
     '--no-sandbox',
     '--disable-dev-shm-usage',
