@@ -18,7 +18,7 @@ import {
 import { TouTiaoAuth } from './lib/auth.js';
 import { TouTiaoPublisher } from './lib/publisher.js';
 import { TouTiaoAnalytics } from './lib/analytics.js';
-import { MCP_CONFIG } from './lib/config.js';
+import { MCP_CONFIG, getCookiesFilePath } from './lib/config.js';
 
 // 初始化服务实例
 let authManager: TouTiaoAuth | null = null;
@@ -28,6 +28,7 @@ let analytics: TouTiaoAnalytics | null = null;
 function initializeServices(): void {
   try {
     authManager = new TouTiaoAuth();
+    console.error(`📁 Cookie 文件: ${getCookiesFilePath()}`);
     publisher = new TouTiaoPublisher(authManager);
     analytics = new TouTiaoAnalytics(authManager);
     console.log('✅ 服务实例初始化成功');

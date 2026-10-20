@@ -59,20 +59,26 @@ export const CONTENT_CONFIG = {
   imageQuality: 85,
 };
 
+// 数据目录：多账号部署时用 TOUTIAO_DATA_DIR 指定，默认当前工作目录
+export function getDataDir(): string {
+  const dir = process.env.TOUTIAO_DATA_DIR?.trim();
+  return dir ? path.resolve(dir) : process.cwd();
+}
+
 // Cookie 文件路径
 export function getCookiesFilePath(): string {
-  return path.join(process.cwd(), 'toutiao_cookies.json');
+  return path.join(getDataDir(), 'toutiao_cookies.json');
 }
 
 // 下载文件夹路径
 export function getDownloadFolderPath(folderName: string = 'downloaded_images'): string {
-  return path.join(process.cwd(), folderName);
+  return path.join(getDataDir(), folderName);
 }
 
 // 日志配置
 export const LOG_CONFIG = {
   level: process.env.LOG_LEVEL || 'info',
-  file: path.join(process.cwd(), 'toutiao_mcp.log'),
+  file: path.join(getDataDir(), 'toutiao_mcp.log'),
 };
 
 // MCP 服务器配置

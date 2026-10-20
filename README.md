@@ -77,6 +77,33 @@ npm run build
 npm start
 ```
 
+## 🔀 多账号部署（一个账号一个 MCP 实例）
+
+同一个仓库可以启动多个实例，每个实例用 `TOUTIAO_DATA_DIR` 指定独立的数据目录，Cookie、下载图片和日志互不覆盖。
+
+```bash
+TOUTIAO_DATA_DIR=/app/data/toutiao-users/main node dist/index.js
+TOUTIAO_DATA_DIR=/app/data/toutiao-users/alt node dist/index.js
+```
+
+MCPHub 中的 server 配置示例：
+
+```json
+{
+  "toutiao-main": {
+    "type": "stdio",
+    "command": "/bin/sh",
+    "args": ["-c", "cd /app/data/toutiao-mcp && exec node dist/index.js"],
+    "env": { "TOUTIAO_DATA_DIR": "/app/data/toutiao-users/main" },
+    "owner": "admin",
+    "visibility": "private"
+  }
+}
+```
+
+每个账号首次使用前，在该实例上调用一次 `login_with_credentials`，Cookie 会保存到自己的目录。
+不设置 `TOUTIAO_DATA_DIR` 时行为与之前一致，使用当前工作目录。
+
 ## 📁 项目结构
 
 ```
